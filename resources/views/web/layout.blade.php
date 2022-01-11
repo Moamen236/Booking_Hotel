@@ -28,6 +28,7 @@
     <!-- ========== ICON FONTS ========== -->
     <link href="{{ asset("web/fonts/font-awesome.min.css") }}" rel="stylesheet">
     <link href="{{ asset("web/fonts/flaticon.css") }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <!-- ========== GOOGLE FONTS ========== -->
     <link href="https://fonts.googleapis.com/css?family=Oswald:400,500,600,700%7CRoboto:100,300,400,400i,500,700" rel="stylesheet">
     @yield('css')
@@ -49,45 +50,67 @@
         <!-- ========== HEADER ========== -->
         <header class="horizontal-header sticky-header" data-menutoggle="991">
             <div class="container">
-            <!-- BRAND -->
-            <div class="brand">
-                <div class="logo">
-                <a href="{{ route('home') }}">
-                    <img src="{{ asset("web/images/logo.svg") }}" alt="Hotel Himara">
-                </a>
+                <!-- BRAND -->
+                <div class="brand">
+                    <div class="logo">
+                    <a href="{{ route('home') }}">
+                        <img src="{{ asset("web/images/logo.svg") }}" alt="Hotel Himara">
+                    </a>
+                    </div>
                 </div>
-            </div>
-            <!-- MOBILE MENU BUTTON -->
-            <div id="toggle-menu-button" class="toggle-menu-button">
-                <span class="line"></span>
-                <span class="line"></span>
-                <span class="line"></span>
-            </div>
-            <!-- MAIN MENU -->
-            <nav id="main-menu" class="main-menu">
-                <ul class="menu">
-                    <li class="menu-item {{ Request::segment(1) == '' ? 'active' : '' }}">
-                        <a href="{{ route('home') }}">HOME</a>
-                    </li>
-                    <li class="menu-item {{ Request::segment(1) == 'about-us' ? 'active' : '' }}">
-                        <a href="{{ route('about') }}">About Us</a>
-                    </li>
-                    <li class="menu-item {{ Request::segment(1) == 'rooms' ? 'active' : '' }}">
-                        <a href="{{ route('rooms') }}">ROOMS</a>
-                    </li>
-                    <li class="menu-item {{ Request::segment(1) == 'blogs' ? 'active' : '' }}">
-                        <a href="{{ route('blogs') }}">BLOG</a>
-                    </li>
-                    <li class="menu-item {{ Request::segment(1) == 'contact-us' ? 'active' : '' }}">
-                        <a href="{{ route('contact-us') }}">CONTACT US</a>
-                    </li>
-                    <li class="menu-item menu-btn">
-                        <a href="{{ route('booking.index') }}" class="btn">
-                        <i class="fa fa-calendar"></i>
-                        BOOK ONLINE</a>
-                    </li>
-                </ul>
-            </nav>
+                <!-- MOBILE MENU BUTTON -->
+                <div id="toggle-menu-button" class="toggle-menu-button">
+                    <span class="line"></span>
+                    <span class="line"></span>
+                    <span class="line"></span>
+                </div>
+                <!-- MAIN MENU -->
+                <nav id="main-menu" class="main-menu">
+                    <form id="logout-form" action="{{ url('/logout') }}" method="post" class="d-none">@csrf</form>
+                    <ul class="menu">
+                        <li class="menu-item {{ Request::segment(1) == '' ? 'active' : '' }}">
+                            <a href="{{ route('home') }}">HOME</a>
+                        </li>
+                        <li class="menu-item {{ Request::segment(1) == 'about-us' ? 'active' : '' }}">
+                            <a href="{{ route('about') }}">About Us</a>
+                        </li>
+                        <li class="menu-item {{ Request::segment(1) == 'rooms' ? 'active' : '' }}">
+                            <a href="{{ route('rooms') }}">ROOMS</a>
+                        </li>
+                        <li class="menu-item {{ Request::segment(1) == 'blogs' ? 'active' : '' }}">
+                            <a href="{{ route('blogs') }}">BLOG</a>
+                        </li>
+                        <li class="menu-item {{ Request::segment(1) == 'contact-us' ? 'active' : '' }}">
+                            <a href="{{ route('contact-us') }}">CONTACT US</a>
+                        </li>
+                        <li class="menu-item menu-btn">
+                            <a href="{{ route('booking.index') }}" class="btn">
+                            <i class="fa fa-calendar"></i>
+                            BOOK ONLINE</a>
+                        </li>
+                        <li class="menu-item dropdown">
+                            <a href="#"><i class="bx bx-user bx-sm"></i></a>
+                            <ul class="submenu">
+                                @auth
+                                    <li class="menu-item">
+                                        <a href="#">Profile</a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a id="logout-link" href="#">Log out</a>
+                                    </li> 
+                                @endauth
+                                @guest
+                                    <li class="menu-item">
+                                        <a href="{{ route('login') }}">Login</a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="{{ route('register') }}">Register</a>
+                                    </li>
+                                @endguest
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </header>
 
@@ -271,6 +294,14 @@
     <script src="{{ asset("web/revolution/js/extensions/revolution.extension.parallax.min.js") }}"></script>
     <script src="{{ asset("web/revolution/js/extensions/revolution.extension.slideanims.min.js") }}"></script>
     <script src="{{ asset("web/revolution/js/extensions/revolution.extension.video.min.js") }}"></script>
+
+    <script>
+        $('#logout-link').click(function(e){
+            e.preventDefault();
+            $('#logout-form').submit();
+        });
+    </script>
+
     @yield('scripts')
   </body>
 </html>

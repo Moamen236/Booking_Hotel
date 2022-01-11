@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RedirectController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\web\BlogController;
 use App\Http\Controllers\web\HomeController;
@@ -28,8 +29,9 @@ Route::get('/rooms/{id}', [RoomController::class, 'show']);
 Route::get('/blogs', [BlogController::class, 'index'])->name('blogs');
 Route::get('/blogs/{id}', [BlogController::class, 'show']);
 
-Route::get('/contact-us', function () {
-    return view('web.contact.index');
-})->name('contact-us');
+Route::view('/contact-us', 'web.contact.index')->name('contact-us');
 
-Route::resource('booking', BookingController::class);
+Route::resource('booking', BookingController::class)->middleware('auth');
+
+
+Route::get('/redirect', [RedirectController::class, 'index'])->name('redirect');
