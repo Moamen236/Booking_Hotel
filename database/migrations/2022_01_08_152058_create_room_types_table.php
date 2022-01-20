@@ -16,10 +16,10 @@ class CreateRoomTypesTable extends Migration
         Schema::create('room_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->double('price');
-            $table->tinyInteger('is_active')->default(1);
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

@@ -28,7 +28,7 @@ class CreateBookingsTable extends Migration
             $table->string('payment_method')->default('cash');
             $table->string('status')->default('pending');
             $table->double('total_price');
-            $table->tinyInteger('is_active')->default(1);
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\web;
+namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\RoomType;
 use Illuminate\Http\Request;
 
-class BookingController extends Controller
+class RoomTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,14 @@ class BookingController extends Controller
      */
     public function index()
     {
-        return view('web.booking.index');
+        $data['room_types'] = RoomType::all();
+        return view('dashboard.room_type.index')->with($data);
+    }
+
+    public function search(Request $request)
+    {
+        // $data['room_types'] = RoomType::where('name', 'like', '%' . $request->search . '%')->get();
+        // return view('dashboard.room_type.index')->with($data);
     }
 
     /**
@@ -35,8 +43,7 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-        dd($data);
+        //
     }
 
     /**

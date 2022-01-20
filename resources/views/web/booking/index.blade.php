@@ -30,7 +30,8 @@
               </div>
               <p class="mb30">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia deleniti fuga recusandae perferendis modi voluptate, ad ratione saepe voluptas nam provident reiciendis velit nulla repellendus illo consequuntur amet similique hic.</p>
               <!-- BOOKING FORM -->
-              <form class="booking-form-advanced" id="booking-form">
+              <form class="booking-form-advanced" action="{{ route('booking.store') }}" method="POST">
+                @csrf
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
@@ -39,7 +40,7 @@
                           <i class="fa fa-info-circle"></i>
                         </a>
                       </label>
-                      <input type="text" class="datepicker form-control " name="booking-date" readonly="readonly">
+                      <input type="text" class="datepicker form-control " name="booking_date" readonly="readonly">
                     </div>
                   </div>
                   <div class="col-md-6">
@@ -61,7 +62,7 @@
                             </label>
                             <div class="guests-button">
                               <div class="minus"></div>
-                              <input type="text" name="booking-adults" class="booking-guests" value="0">
+                              <input type="text" name="booking_adults" class="booking-guests" value="0">
                               <div class="plus"></div>
                             </div>
                           </div>
@@ -73,7 +74,7 @@
                             </label>
                             <div class="guests-button">
                               <div class="minus"></div>
-                              <input type="text" name="booking-children" class="booking-guests" value="0">
+                              <input type="text" name="booking_children" class="booking-guests" value="0">
                               <div class="plus"></div>
                             </div>
                           </div>
@@ -84,9 +85,8 @@
                   <div class="col-md-12">
                     <div class="form-group">
                       <label>Room Type</label>
-                      <select name="booking-roomtype" class="form-control" title="Select Room Type" data-header="Select Room Type">
-                        <option value="Single Room" data-subtext="<span class='badge badge-info'>€89 / night</span>">Single Room
-                        </option>
+                      <select name="booking_roomtype" class="form-control" title="Select Room Type" data-header="Select Room Type">
+                        <option value="Single Room" data-subtext="<span class='badge badge-info'>€89 / night</span>">Single Room </option>
                         <option value="Double Room" data-subtext="<span class='badge badge-info'>€129 / night</span>">Double Room</option>
                         <option value="Deluxe Room" data-subtext="<span class='badge badge-info'>€89 / night</span>">Deluxe Room</option>
                       </select>

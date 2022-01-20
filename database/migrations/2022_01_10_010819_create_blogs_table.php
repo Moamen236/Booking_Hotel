@@ -20,6 +20,7 @@ class CreateBlogsTable extends Migration
             $table->string('slug');
             $table->text('content');
             $table->string('image');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

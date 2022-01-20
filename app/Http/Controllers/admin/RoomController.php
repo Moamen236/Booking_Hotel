@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\web;
+namespace App\Http\Controllers\admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\RoomType;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class BookingController extends Controller
+class RoomController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class BookingController extends Controller
      */
     public function index()
     {
-        return view('web.booking.index');
+        return view('dashboard.room.index');
     }
 
     /**
@@ -24,7 +25,8 @@ class BookingController extends Controller
      */
     public function create()
     {
-        //
+        $data['room_types'] = RoomType::all();
+        return view('dashboard.room.create')->with($data);
     }
 
     /**

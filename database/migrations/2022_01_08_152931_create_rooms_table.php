@@ -23,7 +23,7 @@ class CreateRoomsTable extends Migration
             $table->tinyInteger('max_geusts')->nullable();
             $table->double('price');
             $table->double('discount')->nullable();
-            $table->tinyInteger('is_active')->default(1);
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }
