@@ -17,29 +17,31 @@
                                 <thead class="table-active">
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">First</th>
-                                        <th scope="col">Last</th>
-                                        <th scope="col">Handle</th>
+                                        <th scope="col">Number</th>
+                                        <th scope="col">Room Type</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td colspan="2">Larry the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
+                                    @foreach ($rooms as $room)    
+                                        <tr>
+                                            <th scope="row">{{ $loop->iteration }}</th>
+                                            <td>{{ $room->number }}</td>
+                                            <td>{{ $room->roomType->name }}</td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <a href="#" class="btn btn-info btn-sm"><i class="fas fa-eye"></i></a>
+                                                    <a href="{{ route('rooms.edit', $room->id) }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+                                                    <form action="{{ route('rooms.destroy', $room->id) }}" method="POST" class="d-inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

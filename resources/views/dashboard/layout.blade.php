@@ -20,11 +20,16 @@
 	<link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-	<link href="{{ asset("dashboard/css/app.css") }}" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 	<link href="{{ asset("dashboard/css/all.css") }}" rel="stylesheet">
+	<link href="{{ asset("dashboard/css/app.css") }}" rel="stylesheet">
 	<style>
-		.sidebar-item.active .sidebar-dropdown .sidebar-link:hover,
-		.sidebar-item.active .sidebar-dropdown>.sidebar-link{
+		.sidebar-item .sidebar-dropdown .sidebar-link:hover{
+			color: #fff !important;
+			background: none !important;
+    		border-left-color: transparent !important;
+		}
+		.sidebar-item .sidebar-dropdown .sidebar-item.active_dropdown .sidebar-link:hover{
 			color: #3b7ddd !important;
 			background: none !important;
     		border-left-color: transparent !important;
@@ -51,24 +56,31 @@
 							<i class="align-middle bx bx-slider bx-sm bx-rotate-270"></i> <span class="align-middle">Dashboard</span>
 						</a>
 					</li>
-					<li class="sidebar-item {{ Request::segment(1) == 'admin' && Request::segment(2) == 'rooms'  ? 'active' : '' }}">
+					<li class="sidebar-item {{ Request::segment(2) == 'rooms' || Request::segment(2) == 'room' ? 'active' : '' }}">
 						<a data-bs-target="#room" data-bs-toggle="collapse" class="sidebar-link">
 							<i class="fas fa-level-down-alt"></i>
 							<span class="align-middle fw-bold">Rooms</span>
 						</a>
-						<ul id="room" class="sidebar-dropdown list-unstyled collapse ps-3 {{ Request::segment(1) == 'admin' && Request::segment(2) == 'rooms' || Request::segment(2) == 'room-types'  ? 'show' : '' }}" data-bs-parent="#sidebar">
-							<li class="sidebar-item {{ Request::segment(1) == 'admin' && Request::segment(2) == 'room-types'  ? 'active_dropdown' : '' }}">
-								<a class="sidebar-link" href="{{ route('room-types.index') }}">
-									<i class="align-middle bx bx-collection" style="font-size: 22px;"></i><span class="align-middle">Types</span>
+						<ul id="room" class="sidebar-dropdown list-unstyled collapse ps-3 {{ route('types.index') == url()->current() || route('types.create') == url()->current()  || route('rooms.index') == url()->current()  || route('rooms.create') == url()->current()   ? 'show' : '' }}" data-bs-parent="#sidebar">
+							<li class="sidebar-item {{ route('types.index') == url()->current()  ? 'active_dropdown' : '' }}">
+								<a class="sidebar-link" href="{{ route('types.index') }}">
+									<i class="align-middle bx bx-collection" style="font-size: 22px;"></i>
+									<span class="align-middle">Type List</span>
 								</a>
 							</li>
-							<li class="sidebar-item {{ Request::segment(1) == 'admin' && Request::segment(2) == 'rooms' && Request::segment(3) == ''  ? 'active_dropdown' : '' }}">
+							<li class="sidebar-item {{ route('types.create') == url()->current()  ? 'active_dropdown' : '' }}">
+								<a class="sidebar-link" href="{{ route('types.create') }}">
+									<i class="align-middle bx bx-add-to-queue" style="font-size: 20px;"></i>
+									<span class="align-middle">Add Type</span>
+								</a>
+							</li>
+							<li class="sidebar-item {{ route('rooms.index') == url()->current() ? 'active_dropdown' : '' }}">
 								<a class="sidebar-link" href="{{ route('rooms.index') }}">
 									<i class="align-middle bx bx-hotel" style="font-size: 22px;"></i>
 									<span class="align-middle">Rooms List</span> 
 								</a>
 							</li>
-							<li class="sidebar-item {{ Request::segment(2) == 'rooms' && Request::segment(3) == 'create'  ? 'active_dropdown' : '' }}">
+							<li class="sidebar-item {{ route('rooms.create') == url()->current() ? 'active_dropdown' : '' }}">
 								<a class="sidebar-link" href="{{ route('rooms.create') }}">
 									<i class="align-middle bx bx-add-to-queue" style="font-size: 20px;"></i>
 									<span class="align-middle">Add Room</span>
@@ -314,7 +326,9 @@
 					</ul>
 				</div>
 			</nav>
-
+			<div class="message">
+				@include('includes.messages')
+			</div>
             @yield('content')
             
             <footer class="footer">
@@ -349,9 +363,10 @@
     </div>
 
 	{{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> --}}
-	<script src="{{ asset("dashboard/js/app.js") }}"></script>
-	<script src="{{ asset("dashboard/js/jquery.min.js") }}"></script>
 	<script src="{{ asset("dashboard/js/all.js") }}"></script>
+	<script src="{{ asset("dashboard/js/jquery.min.js") }}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+	<script src="{{ asset("dashboard/js/app.js") }}"></script>
 	@yield('scripts')
 </body>
 

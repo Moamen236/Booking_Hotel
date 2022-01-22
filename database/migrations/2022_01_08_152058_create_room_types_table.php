@@ -17,8 +17,15 @@ class CreateRoomTypesTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->string('image')->nullable();
+            $table->text('image')->nullable();
             $table->double('price');
+            $table->integer('qty');
+            $table->string('options')->nullable();
+            $table->string('contents')->nullable();
+            $table->tinyInteger('max_geusts')->nullable();
+            $table->double('discount')->nullable();
+            $table->date('discount_start')->nullable();
+            $table->date('discount_end')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

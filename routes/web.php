@@ -46,8 +46,8 @@ Route::prefix('admin')->group(function () {
 
     Route::resource('rooms', AdminRoomController::class);
 
-    Route::resource('room-types', RoomTypeController::class);
-    Route::get('room-types/search', [RoomTypeController::class, 'search'])->name('room_types.search');
+    Route::resource('room/types', RoomTypeController::class);
+    Route::get('room/types/search', [RoomTypeController::class, 'search'])->name('types.search');
 
     Route::resource('blogs', BlogController::class);
     Route::resource('bookings', BookingController::class);
